@@ -1,5 +1,3 @@
-#pragma once
-
 template <class T>
 class TStack
 {
@@ -122,8 +120,8 @@ bool TStack<T>::CheckEquation(char *str)
 	return false;
 }
 
-template<class ValType>
-void TStack<ValType>::ClearStack()
+template<class T>
+void TStack<T>::ClearStack()
 {
 	Index = -1;
 }

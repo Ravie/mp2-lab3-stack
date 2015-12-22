@@ -3,7 +3,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Stack.h"
 #include "Parser.h"
-#include <iostream>
 #define MaxLen 201
 using namespace std;
 
@@ -11,7 +10,7 @@ int main()
 {
 	char tmpch[MaxLen];
 	double result;
-	while (1)
+	while (true)
 	{
 		cin >> tmpch;
 		if (tmpch[0] == '\0')
