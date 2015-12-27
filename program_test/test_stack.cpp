@@ -1,5 +1,4 @@
-#include "../Stack/Stack.h"
-
+#include "../Calc/Stack.h"
 #include "../google_test/gtest.h"
 
 TEST(TStack, cant_create_stack_with_negative_length)

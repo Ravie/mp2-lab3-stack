@@ -1,7 +1,4 @@
-// Stack.cpp: определяет точку входа для консольного приложения.
-//
 #define _CRT_SECURE_NO_WARNINGS
-#include "Stack.h"
 #include "Parser.h"
 #define MaxLen 201
 using namespace std;

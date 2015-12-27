@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Stack.h"
 #define MaxLen 201
 #define NumLen 100
 using namespace std;
@@ -321,7 +322,11 @@ double TParser::calcPost()
 			case '+': st_d.PushElem(reg1 + reg2); break;
 			case '-': st_d.PushElem(reg2 - reg1); break;
 			case '*': st_d.PushElem(reg1 * reg2); break;
-			case '/': st_d.PushElem(reg2 / reg1); break;
+			case '/':
+				if (reg1 == 0)
+					throw "DIV_BY_ZERO";
+				st_d.PushElem(reg2 / reg1);
+				break;
 			case '^': st_d.PushElem(exp(reg1*log(reg2))); break;
 			}
 			i++;
