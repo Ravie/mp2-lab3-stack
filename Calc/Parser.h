@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #define _USE_MATH_DEFINES
 #define _CRT_SECURE_NO_WARNINGS
 #include <cstdio>
@@ -19,7 +19,7 @@ public:
 	char postfix[MaxLen];
 	TStack<double> st_d;
 	TStack<char> st_c;
-	int NumbersLen[NumLen];
+	int NumbersLen[NumLen]; // массив длин чисел
 public:
 	TParser(char *_str);
 	~TParser();
@@ -141,7 +141,7 @@ void TParser::InfToPost()
 					i++;
 				}
 				else
-				{
+				{// вставляем * в случае, если перед скобкой стоит число
 					st_c.PushElem('*');
 					st_c.PushElem(infix[i]);
 					i++;
@@ -150,26 +150,21 @@ void TParser::InfToPost()
 			else
 			{
 				if (infix[i] == ')')
-				{
+				{// накопленный в предыдущей ветке st_c разбираем на ОПН
 					while (st_c.Top() != '(')
-					{
-						postfix[j] = st_c.Pop();
-						j++;
-					}
+						postfix[j++] = st_c.Pop();
 					int tmp = st_c.Pop();
 					i++;
 				}
 				else
 				{
 					if (infix[i] == '-' && (i == 0 || infix[i - 1] == '('))
-					{
-
+					{// обработка унарного минуса
 						postfix[j++] = '0';
-						NumbersLen[k] = 1;
-						k++;
+						NumbersLen[k++] = 1;
 						i++;
 						while (IsNumber(infix[i]))
-						{
+						{// определяем длины чисел в инф записи
 							NumbersLen[k] += 1;
 							postfix[j++] = infix[i++];
 						}
@@ -179,13 +174,13 @@ void TParser::InfToPost()
 					else
 					{
 						if (st_c.IsEmpty() || Priority(infix[i]) > Priority(st_c.Top()))
-						{
+						{// добавляем в стэк оператор
 							st_c.PushElem(infix[i]);
 							i++;
 						}
 						else
 							if (Priority(infix[i]) < Priority(st_c.Top()))
-							{
+							{// выталкиваем из стэка оператор
 								while (!st_c.IsEmpty() && Priority(infix[i]) <= Priority(st_c.Top()))
 								{
 									postfix[j] = st_c.Pop();
@@ -206,7 +201,7 @@ void TParser::InfToPost()
 		else
 		{
 			if (IsNumber(infix[i]))
-			{
+			{// переписываем в ОПН числа, учитывая NumbersLen
 				while (IsNumber(infix[i]))
 				{
 					NumbersLen[k] += 1;
@@ -235,7 +230,7 @@ void TParser::InfToPost()
 			TParser tmp(len);
 			tmp.InfToPost();
 			double reztmp = tmp.calcPost();
-			Function(infix, n, reztmp);
+			Function(infix, n, reztmp); // замена строки на функцию
 			char len2[30];
 			sprintf(len2, "%f", reztmp);
 			if (len2[0] == '-')
@@ -270,7 +265,7 @@ void TParser::InfToPost()
 		}
 	}
 	while (!st_c.IsEmpty())
-	{
+	{// вынимаем остальное из стэка
 		postfix[j] = st_c.Pop();
 		j++;
 	}
@@ -283,7 +278,6 @@ double TParser::calcPost()
 	st_c.ClearStack(); st_d.ClearStack();
 	while (postfix[i] != '\0')
 	{
-
 		if (IsNumber(postfix[i]))
 		{
 			if (postfix[i] == 'e')
@@ -298,7 +292,7 @@ double TParser::calcPost()
 					i++;
 				}
 				else
-				{
+				{ // преобразование строкового числа
 					int j = 0;
 					double tmp;
 					char *len3;
