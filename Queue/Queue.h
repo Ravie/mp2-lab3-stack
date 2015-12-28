@@ -1,4 +1,11 @@
 ﻿#pragma once
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <tchar.h>
+#include <locale.h>
+#include <ctime>
+using namespace std;
 
 template <class T>
 class TQueue
@@ -7,6 +14,20 @@ private:
 	int begin, end, len, MaxSize;
 	T *Array;
 public:
+	friend ostream &operator<<(ostream &out, const TQueue<T> &Q)
+	{
+		if (Q.len == 0)
+			out << "Очередь пуста\n";
+		else
+		{
+			out << "Очередь: ";
+			for (int i = 0; i < Q.len; i++)
+				out << Q.Array[i] << " ";
+			out << "\n";
+		}
+		return out;
+	}
+
 	TQueue(int _maxsize = 10)
 	{
 		if (_maxsize <= 0)
