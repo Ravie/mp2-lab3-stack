@@ -18,6 +18,7 @@ public:
 		end = -1;
 		len = 0;
 	}
+
 	~TQueue()
 	{
 		delete[]Array;
@@ -86,17 +87,6 @@ public:
 		}
 		return out;
 	}
-
-	int GetLen()
-	{
-		return len;
-	}
-
-	int GetMaxSize()
-	{
-		return MaxSize;
-	}
-
 };
 
 
