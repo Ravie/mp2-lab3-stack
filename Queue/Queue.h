@@ -59,7 +59,11 @@ public:
 		else
 		{
 			if (begin < MaxSize - 1)
+			{
 				begin++;
+				for (int i = 0; i < len - 1; i++)
+					Array[i] = Array[i + 1];
+			}
 			else
 				begin = 0;
 		}

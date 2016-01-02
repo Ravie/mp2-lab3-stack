@@ -11,7 +11,6 @@ void main()
 	double p, q;
 	cout << "Введите длину очереди: ";
 	cin >> Size;
-	TQueue <int> Q(Size);
 
 	cout << "Вероятность пополнения очереди: ";
 	cin >> p;
@@ -21,22 +20,37 @@ void main()
 	cin >> q;
 	q = q * 100;
 
-	while (!Q.IsFull())
+	for (int i = 0; i < 10; i++)
 	{
-		double p1 = rand() % 100 + 1;
-		double q1 = rand() % 100 + 1;
-		if (p1 < p)
+		TQueue <int> Q(Size);
+		while (!Q.IsFull())
 		{
-			Q.Push(p1);
-			cout << Q;
-		}
-		if (q1 < q)
-		{
-			if (!Q.IsEmpty())
+			double p1 = rand() % 100 + 1;
+			double q1 = rand() % 100 + 1;
+			if (p1 < p)
 			{
-				int tmp = Q.Pop();
+				Q.Push(p1);
 				cout << Q;
 			}
+			if (q1 < q)
+			{
+				if (!Q.IsEmpty())
+				{
+					int tmp = Q.Pop();
+					cout << Q;
+				}
+				else
+				{
+					cout << "Очередь пуста\n";
+					break;
+				}
+			}
+		}
+		if (!Q.IsEmpty())
+		{
+			cout << Q;
+			cout << "Очередь заполнена\n";
 		}
 	}
+
 }
